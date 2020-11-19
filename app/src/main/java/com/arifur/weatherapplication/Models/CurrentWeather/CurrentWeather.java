@@ -1,5 +1,5 @@
 
-package com.arifur.weatherapplication.Models;
+package com.arifur.weatherapplication.Models.CurrentWeather;
 
 import java.util.List;
 

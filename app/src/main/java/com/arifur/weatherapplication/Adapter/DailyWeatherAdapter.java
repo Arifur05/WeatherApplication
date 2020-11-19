@@ -9,46 +9,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arifur.weatherapplication.Models.Daily;
+import com.arifur.weatherapplication.Models.DailyWeather.Daily;
 import com.arifur.weatherapplication.R;
 
 import java.util.List;
 
 /**
  * @author : Arif
- * @date : 19-November-2020 03:37 PM
+ * @date : 19-November-2020 07:20 PM
  * @package : com.arifur.weatherapplication.Adapter
  * -------------------------------------------
  * Copyright (C) 2020 - All Rights Reserved
  **/
-public class DailyTempAdapter extends RecyclerView.Adapter<DailyTempAdapter.DailyTempHolder>{
-
+public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.DailyWeatherViewHolder> {
     Context mContext;
     List<Daily> mDailyList;
-    Integer time;
-    public DailyTempAdapter(Context context, List<Daily> dailyList) {
+
+    public DailyWeatherAdapter(Context context, List<Daily> dailyList) {
         mContext = context;
         mDailyList = dailyList;
     }
 
     @NonNull
     @Override
-    public DailyTempHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DailyWeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(mContext);
         View view=inflater.inflate(R.layout.daily_forcast_card, parent, false);
 
-        return new DailyTempHolder(view);
+        return new DailyWeatherViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DailyTempHolder holder, int position) {
-        if (mDailyList != null) {
-            time = mDailyList.get(position).getDt();
-            String date = new java.text.SimpleDateFormat("dd/MM/yyyy ").format(new java.util.Date(time * 1000L));
-            holder.mDate.setText(date);
-            holder.mMaxTemp.setText(mDailyList.get(position).getTemp().getMax().toString());
-            holder.mMinTemp.setText(mDailyList.get(position).getTemp().getMin().toString());
-        }
+    public void onBindViewHolder(@NonNull DailyWeatherViewHolder holder, int position) {
+        holder.mDate.setText(mDailyList.get(position).getDt().toString());
+        holder.mMaxTemp.setText(mDailyList.get(position).getTemp().getMax().toString());
+        holder.mMinTemp.setText(mDailyList.get(position).getTemp().getMin().toString());
     }
 
     @Override
@@ -56,14 +51,14 @@ public class DailyTempAdapter extends RecyclerView.Adapter<DailyTempAdapter.Dail
         return mDailyList.size();
     }
 
-    public static class DailyTempHolder extends RecyclerView.ViewHolder{
+    public static class DailyWeatherViewHolder extends RecyclerView.ViewHolder{
         TextView mDate, mMinTemp, mMaxTemp;
-
-        public DailyTempHolder(@NonNull View itemView) {
+        public DailyWeatherViewHolder(@NonNull View itemView) {
             super(itemView);
             mDate= itemView.findViewById(R.id.day);
             mMaxTemp= itemView.findViewById(R.id.maxtemp);
             mMinTemp= itemView.findViewById(R.id.mintemp);
+
         }
     }
 }

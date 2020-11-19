@@ -1,13 +1,14 @@
 
-package com.arifur.weatherapplication.Models;
+package com.arifur.weatherapplication.Models.HourlyWeather;
 
 import java.util.List;
+
 
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Current {
+public class Daily {
 
     @SerializedName("dt")
     @Expose
@@ -20,10 +21,10 @@ public class Current {
     private Integer sunset;
     @SerializedName("temp")
     @Expose
-    private Integer temp;
+    private Temp temp;
     @SerializedName("feels_like")
     @Expose
-    private Double feelsLike;
+    private FeelsLike feelsLike;
     @SerializedName("pressure")
     @Expose
     private Integer pressure;
@@ -33,15 +34,6 @@ public class Current {
     @SerializedName("dew_point")
     @Expose
     private Double dewPoint;
-    @SerializedName("uvi")
-    @Expose
-    private Double uvi;
-    @SerializedName("clouds")
-    @Expose
-    private Integer clouds;
-    @SerializedName("visibility")
-    @Expose
-    private Integer visibility;
     @SerializedName("wind_speed")
     @Expose
     private Double windSpeed;
@@ -50,7 +42,19 @@ public class Current {
     private Integer windDeg;
     @SerializedName("weather")
     @Expose
-    private List<Weather> weather = null;
+    private List<Weather_> weather = null;
+    @SerializedName("clouds")
+    @Expose
+    private Integer clouds;
+    @SerializedName("pop")
+    @Expose
+    private Integer pop;
+    @SerializedName("uvi")
+    @Expose
+    private Double uvi;
+    @SerializedName("rain")
+    @Expose
+    private Double rain;
 
     public Integer getDt() {
         return dt;
@@ -76,19 +80,19 @@ public class Current {
         this.sunset = sunset;
     }
 
-    public Integer getTemp() {
+    public Temp getTemp() {
         return temp;
     }
 
-    public void setTemp(Integer temp) {
+    public void setTemp(Temp temp) {
         this.temp = temp;
     }
 
-    public Double getFeelsLike() {
+    public FeelsLike getFeelsLike() {
         return feelsLike;
     }
 
-    public void setFeelsLike(Double feelsLike) {
+    public void setFeelsLike(FeelsLike feelsLike) {
         this.feelsLike = feelsLike;
     }
 
@@ -116,30 +120,6 @@ public class Current {
         this.dewPoint = dewPoint;
     }
 
-    public Double getUvi() {
-        return uvi;
-    }
-
-    public void setUvi(Double uvi) {
-        this.uvi = uvi;
-    }
-
-    public Integer getClouds() {
-        return clouds;
-    }
-
-    public void setClouds(Integer clouds) {
-        this.clouds = clouds;
-    }
-
-    public Integer getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(Integer visibility) {
-        this.visibility = visibility;
-    }
-
     public Double getWindSpeed() {
         return windSpeed;
     }
@@ -156,12 +136,44 @@ public class Current {
         this.windDeg = windDeg;
     }
 
-    public List<Weather> getWeather() {
+    public List<Weather_> getWeather() {
         return weather;
     }
 
-    public void setWeather(List<Weather> weather) {
+    public void setWeather(List<Weather_> weather) {
         this.weather = weather;
+    }
+
+    public Integer getClouds() {
+        return clouds;
+    }
+
+    public void setClouds(Integer clouds) {
+        this.clouds = clouds;
+    }
+
+    public Integer getPop() {
+        return pop;
+    }
+
+    public void setPop(Integer pop) {
+        this.pop = pop;
+    }
+
+    public Double getUvi() {
+        return uvi;
+    }
+
+    public void setUvi(Double uvi) {
+        this.uvi = uvi;
+    }
+
+    public Double getRain() {
+        return rain;
+    }
+
+    public void setRain(Double rain) {
+        this.rain = rain;
     }
 
 }

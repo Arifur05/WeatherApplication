@@ -1,11 +1,11 @@
 
-package com.arifur.weatherapplication.Models;
+package com.arifur.weatherapplication.Models.DailyWeather;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class HourlyWeather {
+public class DailyWeather {
 
     @SerializedName("lat")
     @Expose
@@ -22,9 +22,9 @@ public class HourlyWeather {
     @SerializedName("current")
     @Expose
     private Current current;
-    @SerializedName("hourly")
+    @SerializedName("daily")
     @Expose
-    private List<Hourly> hourly = null;
+    private List<Daily> daily = null;
 
     public Double getLat() {
         return lat;
@@ -66,12 +66,12 @@ public class HourlyWeather {
         this.current = current;
     }
 
-    public List<Hourly> getHourly() {
-        return hourly;
+    public List<Daily> getDaily() {
+        return daily;
     }
 
-    public void setHourly(List<Hourly> hourly) {
-        this.hourly = hourly;
+    public void setDaily(List<Daily> daily) {
+        this.daily = daily;
     }
 
 }

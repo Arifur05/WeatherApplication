@@ -1,5 +1,5 @@
 
-package com.arifur.weatherapplication.Models;
+package com.arifur.weatherapplication.Models.HourlyWeather;
 
 import java.util.List;
 
@@ -7,14 +7,20 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Hourly {
+public class Current {
 
     @SerializedName("dt")
     @Expose
     private Integer dt;
+    @SerializedName("sunrise")
+    @Expose
+    private Integer sunrise;
+    @SerializedName("sunset")
+    @Expose
+    private Integer sunset;
     @SerializedName("temp")
     @Expose
-    private Double temp;
+    private Integer temp;
     @SerializedName("feels_like")
     @Expose
     private Double feelsLike;
@@ -27,6 +33,9 @@ public class Hourly {
     @SerializedName("dew_point")
     @Expose
     private Double dewPoint;
+    @SerializedName("uvi")
+    @Expose
+    private Double uvi;
     @SerializedName("clouds")
     @Expose
     private Integer clouds;
@@ -41,10 +50,7 @@ public class Hourly {
     private Integer windDeg;
     @SerializedName("weather")
     @Expose
-    private List<Weather_> weather = null;
-    @SerializedName("pop")
-    @Expose
-    private Double pop;
+    private List<Weather> weather = null;
 
     public Integer getDt() {
         return dt;
@@ -54,11 +60,27 @@ public class Hourly {
         this.dt = dt;
     }
 
-    public Double getTemp() {
+    public Integer getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(Integer sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public Integer getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(Integer sunset) {
+        this.sunset = sunset;
+    }
+
+    public Integer getTemp() {
         return temp;
     }
 
-    public void setTemp(Double temp) {
+    public void setTemp(Integer temp) {
         this.temp = temp;
     }
 
@@ -94,6 +116,14 @@ public class Hourly {
         this.dewPoint = dewPoint;
     }
 
+    public Double getUvi() {
+        return uvi;
+    }
+
+    public void setUvi(Double uvi) {
+        this.uvi = uvi;
+    }
+
     public Integer getClouds() {
         return clouds;
     }
@@ -126,20 +156,12 @@ public class Hourly {
         this.windDeg = windDeg;
     }
 
-    public List<Weather_> getWeather() {
+    public List<Weather> getWeather() {
         return weather;
     }
 
-    public void setWeather(List<Weather_> weather) {
+    public void setWeather(List<Weather> weather) {
         this.weather = weather;
-    }
-
-    public Double getPop() {
-        return pop;
-    }
-
-    public void setPop(Double pop) {
-        this.pop = pop;
     }
 
 }

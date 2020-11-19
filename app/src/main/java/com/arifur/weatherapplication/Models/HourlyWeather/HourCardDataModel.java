@@ -1,4 +1,4 @@
-package com.arifur.weatherapplication.Models;
+package com.arifur.weatherapplication.Models.HourlyWeather;
 
 /**
  * @author : Arif

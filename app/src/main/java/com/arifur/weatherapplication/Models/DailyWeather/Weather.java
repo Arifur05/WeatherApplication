@@ -1,10 +1,10 @@
 
-package com.arifur.weatherapplication.Models;
+package com.arifur.weatherapplication.Models.DailyWeather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Weather_ {
+public class Weather {
 
     @SerializedName("id")
     @Expose

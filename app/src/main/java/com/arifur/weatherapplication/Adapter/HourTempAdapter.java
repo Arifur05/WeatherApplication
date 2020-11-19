@@ -11,18 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arifur.weatherapplication.Models.Hourly;
-import com.arifur.weatherapplication.Models.HourlyWeather;
+import com.arifur.weatherapplication.Models.HourlyWeather.Hourly;
 import com.arifur.weatherapplication.R;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * @author : Arif
@@ -40,6 +32,7 @@ public class HourTempAdapter extends RecyclerView.Adapter<HourTempAdapter.HourTe
         mHourlyWeathersList = hourlyWeathersList;
     }
 
+
     @NonNull
     @Override
     public HourTempViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,7 +47,7 @@ public class HourTempAdapter extends RecyclerView.Adapter<HourTempAdapter.HourTe
     public void onBindViewHolder(@NonNull HourTempViewHolder holder, int position) {
         if (mHourlyWeathersList!=null){
             time=mHourlyWeathersList.get(position).getDt();
-            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (time*1000L));
+            String date = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date (time*1000L));
             holder.mTime.setText(date.toString());
             holder.mHourlyTemp.setText(mHourlyWeathersList.get(position).getTemp().toString());
         }
