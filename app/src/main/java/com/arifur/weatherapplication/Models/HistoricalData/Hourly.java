@@ -1,22 +1,15 @@
 
-package com.arifur.weatherapplication.Models.DailyWeather;
+package com.arifur.weatherapplication.Models.HistoricalData;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class Current {
+public class Hourly {
 
     @SerializedName("dt")
     @Expose
     private Integer dt;
-    @SerializedName("sunrise")
-    @Expose
-    private Integer sunrise;
-    @SerializedName("sunset")
-    @Expose
-    private Integer sunset;
     @SerializedName("temp")
     @Expose
     private Integer temp;
@@ -29,12 +22,7 @@ public class Current {
     @SerializedName("humidity")
     @Expose
     private Integer humidity;
-    @SerializedName("dew_point")
-    @Expose
-    private Double dewPoint;
-    @SerializedName("uvi")
-    @Expose
-    private Double uvi;
+
     @SerializedName("clouds")
     @Expose
     private Integer clouds;
@@ -57,22 +45,6 @@ public class Current {
 
     public void setDt(Integer dt) {
         this.dt = dt;
-    }
-
-    public Integer getSunrise() {
-        return sunrise;
-    }
-
-    public void setSunrise(Integer sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    public Integer getSunset() {
-        return sunset;
-    }
-
-    public void setSunset(Integer sunset) {
-        this.sunset = sunset;
     }
 
     public Integer getTemp() {
@@ -107,21 +79,7 @@ public class Current {
         this.humidity = humidity;
     }
 
-    public Double getDewPoint() {
-        return dewPoint;
-    }
 
-    public void setDewPoint(Double dewPoint) {
-        this.dewPoint = dewPoint;
-    }
-
-    public Double getUvi() {
-        return uvi;
-    }
-
-    public void setUvi(Double uvi) {
-        this.uvi = uvi;
-    }
 
     public Integer getClouds() {
         return clouds;

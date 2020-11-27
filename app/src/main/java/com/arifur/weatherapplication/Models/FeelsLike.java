@@ -1,5 +1,5 @@
 
-package com.arifur.weatherapplication.Models.HourlyWeather;
+package com.arifur.weatherapplication.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

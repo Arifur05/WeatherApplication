@@ -4,162 +4,111 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arifur.weatherapplication.Adapter.DailyWeatherAdapter;
-import com.arifur.weatherapplication.Adapter.HourTempAdapter;
-
-import com.arifur.weatherapplication.Models.CurrentWeather.CurrentWeather;
-import com.arifur.weatherapplication.Models.CurrentWeather.Main;
-import com.arifur.weatherapplication.Models.DailyWeather.Daily;
-import com.arifur.weatherapplication.Models.DailyWeather.DailyWeather;
-import com.arifur.weatherapplication.Models.HourlyWeather.Hourly;
-import com.arifur.weatherapplication.Models.HourlyWeather.HourlyWeather;
+import com.arifur.weatherapplication.Adapters.DailyForcastAdapter;
+import com.arifur.weatherapplication.Adapters.HourlyWeatherAdapter;
+import com.arifur.weatherapplication.Models.Daily;
+import com.arifur.weatherapplication.Models.Hourly;
+import com.arifur.weatherapplication.Models.WeatherModel;
+import com.arifur.weatherapplication.Utils.Constants;
 import com.arifur.weatherapplication.Utils.Requests;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.arifur.weatherapplication.Utils.Constants.OPEN_WEATHER_API_KEY;
+/**
+ * @author : Arif
+ * @date : 26-November-2020 07:10 PM
+ * @package : com.arifur.weatherapplication.Api
+ * -------------------------------------------
+ * Copyright (C) 2020 - All Rights Reserved
+ **/
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView mTodaysTemperature, mRealFeel, sunrise, sunset;
-
-    ProgressBar mProgressBar;
-    RecyclerView mHourlyTemprv, mDailyTemprv;
-    private HourTempAdapter mHourTempAdapter;
-    private DailyWeatherAdapter mDailyTempAdapter;
-    Button mPrevForcast;
+    TextView mLocation, mCurrentWeather, mFeelsLikeWeather, sunrise, sunset;
+    RecyclerView mHourlyRV, mDailyRV;
+    ProgressBar mLoadingBar;
+    private HourlyWeatherAdapter mHourlyWeatherAdapter;
+    private DailyForcastAdapter mDailyForcastAdapter;
+    Button mHistoralWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTodaysTemperature = findViewById(R.id.todaysTemperature);
-        sunrise= findViewById(R.id.sunrise);
-        sunset= findViewById(R.id.sunset);
-        mRealFeel = findViewById(R.id.realFeel);
-        mPrevForcast= findViewById(R.id.previous);
-        mProgressBar = findViewById(R.id.progress_circular);
-        mHourlyTemprv = findViewById(R.id.hourlytemperature);
-        mDailyTemprv= findViewById(R.id.dailytemperaturerv);
-        mHourlyTemprv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        mDailyTemprv.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL,false));
 
-        mPrevForcast.setOnClickListener(new View.OnClickListener() {
+        mLoadingBar = findViewById(R.id.loading);
+        mCurrentWeather = findViewById(R.id.currentTemp);
+        mFeelsLikeWeather = findViewById(R.id.feelsliketemp);
+        mLocation= findViewById(R.id.location);
+        mHourlyRV = findViewById(R.id.hourlyforcast);
+        mDailyRV = findViewById(R.id.daily_forcast);
+        sunrise= findViewById(R.id.sunrise);
+        sunset= findViewById(R.id.sunsets);
+        mHourlyRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mDailyRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mHistoralWeather = findViewById(R.id.historical_forcast);
+
+        mHistoralWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this, PreviousDayForcast.class);
+                Intent intent = new Intent(MainActivity.this, HistoricalDataActivity.class);
                 startActivity(intent);
             }
         });
-
-
-        getCurrentWeatherData();
-        getHourlyWeatherData();
-        getDailyWeatherData();
+        getWeatherData();
     }
 
+    public void getWeatherData() {
+        mLoadingBar.setVisibility(View.VISIBLE);
 
-
-    //current Weather Data
-    public void getCurrentWeatherData() {
-
-        mProgressBar.setVisibility(View.VISIBLE);
-        Call<CurrentWeather> currentWeatherCall = Requests.getWeatherApi().getCurrentWeather(OPEN_WEATHER_API_KEY, "Dhaka");
-        currentWeatherCall.enqueue(new Callback<CurrentWeather>() {
+        Call<WeatherModel> mWeatherModelCall = Requests.getOpenWeatherApi().getWeather(Constants.OPEN_WEATHER_API_KEY);
+        mWeatherModelCall.enqueue(new Callback<WeatherModel>() {
             @Override
-            public void onResponse(Call<CurrentWeather> call, Response<CurrentWeather> response) {
-                if (response.isSuccessful()) {
-                    CurrentWeather currentWeatherList = response.body();
-                    Log.d("MAIN ACTIVITY", currentWeatherList.toString());
-                    Main main = currentWeatherList.getMain();
-                    long feels = Math.round(main.getFeelsLike());
-                    mTodaysTemperature.setText(main.getTemp().toString() + "°C");
-                    mRealFeel.setText("feels like " + feels + "°C");
-                    mProgressBar.setVisibility(View.GONE);
-                    DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-                    sunrise.setText("Sunrrises at:" +dateFormat.format(currentWeatherList.getSys().getSunrise()));
-                    sunset.setText("Sunrsets at:" +dateFormat.format(currentWeatherList.getSys().getSunset()));
-                } else {
-                    Toast.makeText(MainActivity.this, "Unsuccessful", Toast.LENGTH_SHORT).show();
-                }
+            public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
+
+                WeatherModel weatherModel = response.body();
+
+                Integer epoch= weatherModel.getCurrent().getSunrise();
+                String date = new java.text.SimpleDateFormat("HH:mm a").format(new java.util.Date (epoch*1000L));
+                sunrise.setText("sun rises in " +date);
+                Integer epochsunset= weatherModel.getCurrent().getSunrise();
+                String datesunset = new java.text.SimpleDateFormat("HH:mm a").format(new java.util.Date (epochsunset*1000L));
+                sunset.setText("sun sets in " +datesunset);
+                mLocation.setText(weatherModel.getTimezone());
+                mCurrentWeather.setText(weatherModel.getCurrent().getTemp().toString() + " °C");
+                mFeelsLikeWeather.setText("Feels Like " + Math.round(weatherModel.getCurrent().getFeelsLike()) + " °C");
+                List<Hourly> mHourly = weatherModel.getHourly();
+
+                mHourlyWeatherAdapter = new HourlyWeatherAdapter(getApplicationContext(), mHourly);
+                mHourlyRV.setAdapter(mHourlyWeatherAdapter);
+
+                List<Daily> mDaily = weatherModel.getDaily();
+                mDailyForcastAdapter = new DailyForcastAdapter(getApplicationContext(), mDaily);
+                mDailyRV.setAdapter(mDailyForcastAdapter);
+                Log.d("TAG", "Succeed");
+                mLoadingBar.setVisibility(View.GONE);
             }
 
             @Override
-            public void onFailure(Call<CurrentWeather> call, Throwable t) {
+            public void onFailure(Call<WeatherModel> call, Throwable t) {
 
-            }
-        });
-
-    }
-
-    //Hourly and Daily Weather Data
-    public void getHourlyWeatherData() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        Call<HourlyWeather> hourlyWeatherCall = Requests.getWeatherApi().getHourlyWeather(OPEN_WEATHER_API_KEY);
-        hourlyWeatherCall.enqueue(new Callback<HourlyWeather>() {
-            @Override
-            public void onResponse(Call<HourlyWeather> call, Response<HourlyWeather> response) {
-                if (response.isSuccessful()) {
-                    HourlyWeather hourlyWeather = response.body();
-                    List<Hourly> hourlyList= hourlyWeather.getHourly();
-                    Log.d("MAIN", hourlyList.toString());
-
-                    mHourTempAdapter=new HourTempAdapter(getApplicationContext(),hourlyList);
-
-                    mHourlyTemprv.setAdapter(mHourTempAdapter);
-
-                    mProgressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HourlyWeather> call, Throwable t) {
+                Log.d("TAG", t.getCause().toString());
 
             }
         });
     }
 
-    //Hourly and Daily Weather Data
-    public void getDailyWeatherData() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        Call<DailyWeather> hourlyWeatherCall = Requests.getWeatherApi().getDailyWeather(OPEN_WEATHER_API_KEY);
-        hourlyWeatherCall.enqueue(new Callback<DailyWeather>() {
-            @Override
-            public void onResponse(Call<DailyWeather> call, Response<DailyWeather> response) {
-                if (response.isSuccessful()) {
-                    DailyWeather dailyWeather = response.body();
-                    List<Daily> dailyList= dailyWeather.getDaily();
 
-                    Log.d("MAIN ACTIVITY", dailyList.toString());
-
-                    mDailyTempAdapter = new DailyWeatherAdapter(getApplicationContext(),dailyList);
-                    mDailyTemprv.setAdapter(mDailyTempAdapter);
-                    mProgressBar.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DailyWeather> call, Throwable t) {
-
-            }
-        });
-    }
 }

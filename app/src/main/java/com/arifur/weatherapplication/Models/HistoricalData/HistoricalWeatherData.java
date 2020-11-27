@@ -2,65 +2,30 @@
 package com.arifur.weatherapplication.Models.HistoricalData;
 
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class HistoricalWeatherData {
 
-    @SerializedName("timezone")
-    @Expose
-    private String timezone;
-    @SerializedName("state_code")
-    @Expose
-    private String stateCode;
-    @SerializedName("country_code")
-    @Expose
-    private String countryCode;
     @SerializedName("lat")
     @Expose
     private Double lat;
     @SerializedName("lon")
     @Expose
     private Double lon;
-    @SerializedName("city_name")
+    @SerializedName("timezone")
     @Expose
-    private String cityName;
-    @SerializedName("station_id")
+    private String timezone;
+    @SerializedName("timezone_offset")
     @Expose
-    private String stationId;
-    @SerializedName("data")
+    private Integer timezoneOffset;
+    @SerializedName("current")
     @Expose
-    private List<Datum> data = null;
-    @SerializedName("sources")
+    private Current current;
+    @SerializedName("hourly")
     @Expose
-    private List<String> sources = null;
-    @SerializedName("city_id")
-    @Expose
-    private String cityId;
-
-    public String getTimezone() {
-        return timezone;
-    }
-
-    public void setTimezone(String timezone) {
-        this.timezone = timezone;
-    }
-
-    public String getStateCode() {
-        return stateCode;
-    }
-
-    public void setStateCode(String stateCode) {
-        this.stateCode = stateCode;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
+    private List<Hourly> hourly = null;
 
     public Double getLat() {
         return lat;
@@ -78,44 +43,36 @@ public class HistoricalWeatherData {
         this.lon = lon;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getTimezone() {
+        return timezone;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 
-    public String getStationId() {
-        return stationId;
+    public Integer getTimezoneOffset() {
+        return timezoneOffset;
     }
 
-    public void setStationId(String stationId) {
-        this.stationId = stationId;
+    public void setTimezoneOffset(Integer timezoneOffset) {
+        this.timezoneOffset = timezoneOffset;
     }
 
-    public List<Datum> getData() {
-        return data;
+    public Current getCurrent() {
+        return current;
     }
 
-    public void setData(List<Datum> data) {
-        this.data = data;
+    public void setCurrent(Current current) {
+        this.current = current;
     }
 
-    public List<String> getSources() {
-        return sources;
+    public List<Hourly> getHourly() {
+        return hourly;
     }
 
-    public void setSources(List<String> sources) {
-        this.sources = sources;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
+    public void setHourly(List<Hourly> hourly) {
+        this.hourly = hourly;
     }
 
 }

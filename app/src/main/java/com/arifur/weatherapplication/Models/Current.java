@@ -1,14 +1,13 @@
 
-package com.arifur.weatherapplication.Models.HourlyWeather;
+package com.arifur.weatherapplication.Models;
 
 import java.util.List;
-
 
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Daily {
+public class Current {
 
     @SerializedName("dt")
     @Expose
@@ -21,10 +20,10 @@ public class Daily {
     private Integer sunset;
     @SerializedName("temp")
     @Expose
-    private Temp temp;
+    private Integer temp;
     @SerializedName("feels_like")
     @Expose
-    private FeelsLike feelsLike;
+    private Double feelsLike;
     @SerializedName("pressure")
     @Expose
     private Integer pressure;
@@ -34,6 +33,15 @@ public class Daily {
     @SerializedName("dew_point")
     @Expose
     private Double dewPoint;
+    @SerializedName("uvi")
+    @Expose
+    private Double uvi;
+    @SerializedName("clouds")
+    @Expose
+    private Integer clouds;
+    @SerializedName("visibility")
+    @Expose
+    private Integer visibility;
     @SerializedName("wind_speed")
     @Expose
     private Double windSpeed;
@@ -42,19 +50,7 @@ public class Daily {
     private Integer windDeg;
     @SerializedName("weather")
     @Expose
-    private List<Weather_> weather = null;
-    @SerializedName("clouds")
-    @Expose
-    private Integer clouds;
-    @SerializedName("pop")
-    @Expose
-    private Integer pop;
-    @SerializedName("uvi")
-    @Expose
-    private Double uvi;
-    @SerializedName("rain")
-    @Expose
-    private Double rain;
+    private List<Weather> weather = null;
 
     public Integer getDt() {
         return dt;
@@ -80,19 +76,19 @@ public class Daily {
         this.sunset = sunset;
     }
 
-    public Temp getTemp() {
+    public Integer getTemp() {
         return temp;
     }
 
-    public void setTemp(Temp temp) {
+    public void setTemp(Integer temp) {
         this.temp = temp;
     }
 
-    public FeelsLike getFeelsLike() {
+    public Double getFeelsLike() {
         return feelsLike;
     }
 
-    public void setFeelsLike(FeelsLike feelsLike) {
+    public void setFeelsLike(Double feelsLike) {
         this.feelsLike = feelsLike;
     }
 
@@ -120,6 +116,30 @@ public class Daily {
         this.dewPoint = dewPoint;
     }
 
+    public Double getUvi() {
+        return uvi;
+    }
+
+    public void setUvi(Double uvi) {
+        this.uvi = uvi;
+    }
+
+    public Integer getClouds() {
+        return clouds;
+    }
+
+    public void setClouds(Integer clouds) {
+        this.clouds = clouds;
+    }
+
+    public Integer getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Integer visibility) {
+        this.visibility = visibility;
+    }
+
     public Double getWindSpeed() {
         return windSpeed;
     }
@@ -136,44 +156,12 @@ public class Daily {
         this.windDeg = windDeg;
     }
 
-    public List<Weather_> getWeather() {
+    public List<Weather> getWeather() {
         return weather;
     }
 
-    public void setWeather(List<Weather_> weather) {
+    public void setWeather(List<Weather> weather) {
         this.weather = weather;
-    }
-
-    public Integer getClouds() {
-        return clouds;
-    }
-
-    public void setClouds(Integer clouds) {
-        this.clouds = clouds;
-    }
-
-    public Integer getPop() {
-        return pop;
-    }
-
-    public void setPop(Integer pop) {
-        this.pop = pop;
-    }
-
-    public Double getUvi() {
-        return uvi;
-    }
-
-    public void setUvi(Double uvi) {
-        this.uvi = uvi;
-    }
-
-    public Double getRain() {
-        return rain;
-    }
-
-    public void setRain(Double rain) {
-        this.rain = rain;
     }
 
 }

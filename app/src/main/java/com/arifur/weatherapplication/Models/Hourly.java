@@ -1,26 +1,18 @@
 
-package com.arifur.weatherapplication.Models.HourlyWeather;
+package com.arifur.weatherapplication.Models;
 
 import java.util.List;
-
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Current {
+public class Hourly {
 
     @SerializedName("dt")
     @Expose
     private Integer dt;
-    @SerializedName("sunrise")
-    @Expose
-    private Integer sunrise;
-    @SerializedName("sunset")
-    @Expose
-    private Integer sunset;
     @SerializedName("temp")
     @Expose
-    private Integer temp;
+    private Double temp;
     @SerializedName("feels_like")
     @Expose
     private Double feelsLike;
@@ -33,9 +25,6 @@ public class Current {
     @SerializedName("dew_point")
     @Expose
     private Double dewPoint;
-    @SerializedName("uvi")
-    @Expose
-    private Double uvi;
     @SerializedName("clouds")
     @Expose
     private Integer clouds;
@@ -52,6 +41,7 @@ public class Current {
     @Expose
     private List<Weather> weather = null;
 
+
     public Integer getDt() {
         return dt;
     }
@@ -60,27 +50,11 @@ public class Current {
         this.dt = dt;
     }
 
-    public Integer getSunrise() {
-        return sunrise;
-    }
-
-    public void setSunrise(Integer sunrise) {
-        this.sunrise = sunrise;
-    }
-
-    public Integer getSunset() {
-        return sunset;
-    }
-
-    public void setSunset(Integer sunset) {
-        this.sunset = sunset;
-    }
-
-    public Integer getTemp() {
+    public Double getTemp() {
         return temp;
     }
 
-    public void setTemp(Integer temp) {
+    public void setTemp(Double temp) {
         this.temp = temp;
     }
 
@@ -114,14 +88,6 @@ public class Current {
 
     public void setDewPoint(Double dewPoint) {
         this.dewPoint = dewPoint;
-    }
-
-    public Double getUvi() {
-        return uvi;
-    }
-
-    public void setUvi(Double uvi) {
-        this.uvi = uvi;
     }
 
     public Integer getClouds() {
@@ -163,5 +129,7 @@ public class Current {
     public void setWeather(List<Weather> weather) {
         this.weather = weather;
     }
+
+
 
 }
